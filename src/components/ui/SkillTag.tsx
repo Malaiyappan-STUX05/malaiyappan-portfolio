@@ -1,14 +1,15 @@
 'use client';
 
-import { type HTMLAttributes } from 'react';
+import { type ReactNode } from 'react';
 import { motion } from 'framer-motion';
 import { type SkillLevel } from '@/types';
 
-interface SkillTagProps extends HTMLAttributes<HTMLDivElement> {
+interface SkillTagProps {
   name: string;
   level?: SkillLevel;
   description?: string;
   showLevel?: boolean;
+  className?: string;
 }
 
 const levelConfig: Record<SkillLevel, { label: string; color: string }> = {
@@ -34,7 +35,6 @@ export function SkillTag({
   description,
   showLevel = false,
   className = '',
-  ...props
 }: SkillTagProps) {
   const config = level ? levelConfig[level] : null;
 
@@ -43,7 +43,6 @@ export function SkillTag({
       whileHover={{ scale: 1.03, y: -2 }}
       transition={{ duration: 0.2 }}
       className={`group relative inline-flex items-center gap-2 ${className}`}
-      {...props}
     >
       <span
         className={`inline-flex items-center px-3.5 py-1.5 rounded-lg text-sm font-medium border ${

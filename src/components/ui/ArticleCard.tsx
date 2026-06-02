@@ -34,7 +34,7 @@ export function ArticleCard({ article, index = 0 }: ArticleCardProps) {
           </span>
           <span className="inline-flex items-center gap-1.5">
             <Clock className="w-3.5 h-3.5" />
-            {article.readTime || 'Quick Read'}
+            {'Quick Read'}
           </span>
         </div>
 
