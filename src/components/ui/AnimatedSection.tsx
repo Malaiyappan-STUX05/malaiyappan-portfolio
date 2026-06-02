@@ -1,17 +1,19 @@
 'use client';
 
-import { type ReactNode, type ComponentPropsWithoutRef } from 'react';
+import { type ReactNode } from 'react';
 import { motion } from 'framer-motion';
 
-type AnimatedSectionProps = {
+// ── AnimatedSection ──────────────────────────────────────────
+
+interface AnimatedSectionProps {
   children: ReactNode;
   delay?: number;
   duration?: number;
   direction?: 'up' | 'down' | 'left' | 'right' | 'none';
   className?: string;
-};
+}
 
-const directionOffsets = {
+const directionOffsets: Record<string, { y: number; x: number }> = {
   up: { y: 40, x: 0 },
   down: { y: -40, x: 0 },
   left: { y: 0, x: 40 },
@@ -25,7 +27,6 @@ export function AnimatedSection({
   duration = 0.6,
   direction = 'up',
   className = '',
-  ...props
 }: AnimatedSectionProps) {
   const offset = directionOffsets[direction];
 
@@ -40,26 +41,26 @@ export function AnimatedSection({
         ease: [0.25, 0.46, 0.45, 0.94],
       }}
       className={className}
-      {...props}
     >
       {children}
     </motion.section>
   );
 }
 
-type StaggerContainerProps = {
+// ── StaggerContainer ─────────────────────────────────────────
+
+interface StaggerContainerProps {
   children: ReactNode;
   staggerDelay?: number;
   childDelay?: number;
   className?: string;
-};
+}
 
 export function StaggerContainer({
   children,
   staggerDelay = 0,
   childDelay = 0.1,
   className = '',
-  ...props
 }: StaggerContainerProps) {
   return (
     <motion.div
@@ -77,23 +78,22 @@ export function StaggerContainer({
         },
       }}
       className={className}
-      {...props}
     >
       {children}
     </motion.div>
   );
 }
 
-type StaggerItemProps = {
+// ── StaggerItem ──────────────────────────────────────────────
+
+interface StaggerItemProps {
   children: ReactNode;
   className?: string;
-  [key: string]: unknown;
-};
+}
 
 export function StaggerItem({
   children,
   className = '',
-  ...props
 }: StaggerItemProps) {
   return (
     <motion.div
@@ -103,7 +103,6 @@ export function StaggerItem({
       }}
       transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
       className={className}
-      {...props}
     >
       {children}
     </motion.div>
