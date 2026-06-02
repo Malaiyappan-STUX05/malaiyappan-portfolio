@@ -134,7 +134,7 @@ export default function ResumePage() {
           <AnimatedSection direction="up" delay={0.25}>
             <section>
               <h2 className="text-xl font-bold text-[#E8E8F0] mb-4 flex items-center gap-3">
-                <Badge className="rounded-lg w-5 h-5 p-0 flex items-center justify-center bg-[rgba(0,240,255,0.15)]" />
+                <div className="rounded w-5 h-5 bg-[rgba(0,240,255,0.2)] flex-shrink-0" />
                 Technical Skills
               </h2>
               <Card variant="glass">
@@ -163,7 +163,7 @@ export default function ResumePage() {
           <AnimatedSection direction="up" delay={0.3}>
             <section>
               <h2 className="text-xl font-bold text-[#E8E8F0] mb-4 flex items-center gap-3">
-                <Badge className="rounded-lg w-5 h-5 p-0 flex items-center justify-center bg-[rgba(0,240,255,0.15)]" />
+                <div className="rounded w-5 h-5 bg-[rgba(0,240,255,0.2)] flex-shrink-0" />
                 Experience & Internships
               </h2>
               <div className="space-y-4">
@@ -199,7 +199,7 @@ export default function ResumePage() {
           <AnimatedSection direction="up" delay={0.35}>
             <section>
               <h2 className="text-xl font-bold text-[#E8E8F0] mb-4 flex items-center gap-3">
-                <Badge className="rounded-lg w-5 h-5 p-0 flex items-center justify-center bg-[rgba(0,240,255,0.15)]" />
+                <div className="rounded w-5 h-5 bg-[rgba(0,240,255,0.2)] flex-shrink-0" />
                 Key Projects
               </h2>
               <div className="space-y-4">
@@ -222,7 +222,7 @@ export default function ResumePage() {
           <AnimatedSection direction="up" delay={0.4}>
             <section>
               <h2 className="text-xl font-bold text-[#E8E8F0] mb-4 flex items-center gap-3">
-                <Badge className="rounded-lg w-5 h-5 p-0 flex items-center justify-center bg-[rgba(0,240,255,0.15)]" />
+                <div className="rounded w-5 h-5 bg-[rgba(0,240,255,0.2)] flex-shrink-0" />
                 Certifications
               </h2>
               <Card variant="glass">
