@@ -2,6 +2,7 @@ import { type Metadata } from 'next';
 import { researchArticles } from '@/data/research';
 import { getAllPublishedMdxArticles } from '@/lib/mdx';
 import { siteConfig } from '@/data/site';
+import { type ResearchArticle, type ResearchCategory } from '@/types';
 import { ResearchCard } from '@/components/research/ResearchCard';
 import { AnimatedSection, StaggerContainer, StaggerItem } from '@/components/ui/AnimatedSection';
 import { PenTool } from 'lucide-react';
@@ -32,7 +33,7 @@ export default function ResearchPage() {
       slug: a.slug,
       title: a.frontmatter.title,
       summary: a.frontmatter.summary,
-      category: a.frontmatter.category,
+      category: a.frontmatter.category as ResearchCategory,
       tags: a.frontmatter.tags,
       publishedDate: a.frontmatter.publishedDate,
       status: a.frontmatter.status,

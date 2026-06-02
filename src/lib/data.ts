@@ -13,6 +13,7 @@ import {
   getProjectById,
   getFeaturedProjects,
   getAllProjectIds,
+  getProjectsForHomepage,
 } from '@/data/projects';
 import {
   researchContributions,
@@ -55,7 +56,7 @@ export function getFeaturedCertifications() {
 
 // ── Projects ─────────────────────────────────────────────────
 
-export { getProjectById, getFeaturedProjects, getAllProjectIds, projects };
+export { getProjectById, getFeaturedProjects, getAllProjectIds, getProjectsForHomepage, projects };
 
 // ── Research ─────────────────────────────────────────────────
 
