@@ -1,14 +1,15 @@
 'use client';
 
-import { type HTMLAttributes, type ReactNode } from 'react';
+import { type ReactNode, type ComponentPropsWithoutRef } from 'react';
 import { motion } from 'framer-motion';
 
-interface AnimatedSectionProps extends HTMLAttributes<HTMLElement> {
+type AnimatedSectionProps = {
   children: ReactNode;
   delay?: number;
   duration?: number;
   direction?: 'up' | 'down' | 'left' | 'right' | 'none';
-}
+  className?: string;
+};
 
 const directionOffsets = {
   up: { y: 40, x: 0 },
@@ -46,11 +47,12 @@ export function AnimatedSection({
   );
 }
 
-interface StaggerContainerProps extends HTMLAttributes<HTMLDivElement> {
+type StaggerContainerProps = {
   children: ReactNode;
   staggerDelay?: number;
   childDelay?: number;
-}
+  className?: string;
+};
 
 export function StaggerContainer({
   children,
@@ -85,8 +87,10 @@ export function StaggerContainer({
 export function StaggerItem({
   children,
   className = '',
-  ...props
-}: HTMLAttributes<HTMLDivElement>) {
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
   return (
     <motion.div
       variants={{
