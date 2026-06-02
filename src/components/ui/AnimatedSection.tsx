@@ -84,13 +84,17 @@ export function StaggerContainer({
   );
 }
 
+type StaggerItemProps = {
+  children: ReactNode;
+  className?: string;
+  [key: string]: unknown;
+};
+
 export function StaggerItem({
   children,
   className = '',
-}: {
-  children: ReactNode;
-  className?: string;
-}) {
+  ...props
+}: StaggerItemProps) {
   return (
     <motion.div
       variants={{
