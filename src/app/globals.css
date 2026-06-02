@@ -1,0 +1,204 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── CSS Custom Properties ─────────────────────────────────── */
+
+:root {
+  /* Colors */
+  --color-cyan: #00F0FF;
+  --color-cyan-dark: #00C4D4;
+  --color-red: #FF2D55;
+  --color-bg-primary: #0A0A0F;
+  --color-bg-secondary: #12121A;
+  --color-bg-tertiary: #1A1A25;
+  --color-bg-elevated: #222233;
+  --color-text-primary: #E8E8F0;
+  --color-text-secondary: #9A9AAA;
+  --color-text-tertiary: #5A5A72;
+
+  /* Fonts */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+
+  /* Spacing */
+  --section-padding: 6rem;
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-base: 300ms ease;
+  --transition-slow: 500ms ease;
+}
+
+/* ── Base Styles ───────────────────────────────────────────── */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  color-scheme: dark;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Scrollbar ─────────────────────────────────────────────── */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-bg-elevated);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-tertiary);
+}
+
+/* ── Selection ─────────────────────────────────────────────── */
+
+::selection {
+  background: rgba(0, 240, 255, 0.2);
+  color: var(--color-text-primary);
+}
+
+/* ── Focus Styles ──────────────────────────────────────────── */
+
+:focus-visible {
+  outline: 2px solid var(--color-cyan);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ── Typography ──────────────────────────────────────────────── */
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--color-text-primary);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ── Utility Classes ───────────────────────────────────────── */
+
+@layer utilities {
+  .text-gradient {
+    background: linear-gradient(135deg, var(--color-cyan), var(--color-cyan-dark));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .glass {
+    background: rgba(18, 18, 26, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(0, 240, 255, 0.08);
+  }
+
+  .glow-cyan {
+    box-shadow: 0 0 30px rgba(0, 240, 255, 0.15);
+  }
+
+  .glow-cyan-lg {
+    box-shadow: 0 0 50px rgba(0, 240, 255, 0.25);
+  }
+
+  .border-glow {
+    border: 1px solid rgba(0, 240, 255, 0.15);
+  }
+
+  .section-spacing {
+    padding-top: var(--section-padding);
+    padding-bottom: var(--section-padding);
+  }
+
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+/* ── Animations ────────────────────────────────────────────── */
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(0, 240, 255, 0.1); }
+  50% { box-shadow: 0 0 40px rgba(0, 240, 255, 0.2); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.6s ease-out forwards;
+}
+
+/* ── Reduced Motion ────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ── Responsive Helpers ────────────────────────────────────── */
+
+@media (max-width: 767px) {
+  :root {
+    --section-padding: 4rem;
+  }
+}
