@@ -1,118 +1,67 @@
-'use client';
+"use client";
 
-import {
-  Shield,
-  Code,
-  Cloud,
-  Activity,
-  Terminal,
-  Search,
-} from 'lucide-react';
-import { getSkillCategories } from '@/lib/data';
-import { SectionHeading } from '@/components/ui/SectionHeading';
-import { Card } from '@/components/ui/Card';
-import { SkillTag, SkillLevelBadge } from '@/components/ui/SkillTag';
-import { AnimatedSection, StaggerContainer, StaggerItem } from '@/components/ui/AnimatedSection';
+import { motion } from "framer-motion";
+import { skillCategories } from "@/lib/data/skills";
 
-const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
-  Shield,
-  Code,
-  Cloud,
-  Activity,
-  Terminal,
-  Search,
-};
-
-const skillCategories = getSkillCategories();
-
-export function Skills() {
+function SkillBar({ name, level, delay }: { name: string; level: number; delay: number }) {
   return (
-    <section id="skills" className="relative py-24 md:py-32">
-      <div className="max-w-6xl mx-auto px-6">
-        <SectionHeading
-          label="Skills"
-          title="Technical Arsenal"
-          description="Security tools, technologies, and domains I work with."
+    <div className="group">
+      <div className="flex items-center justify-between mb-1.5">
+        <span className="text-sm text-text-secondary group-hover:text-text-primary transition-colors">{name}</span>
+        <span className="text-xs font-mono text-text-muted">{level}%</span>
+      </div>
+      <div className="h-1.5 bg-bg-tertiary rounded-full overflow-hidden">
+        <motion.div
+          initial={{ width: 0 }}
+          whileInView={{ width: `${level}%` }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay, ease: "easeOut" }}
+          className="h-full rounded-full bg-gradient-to-r from-accent-primary/60 to-accent-primary"
         />
+      </div>
+    </div>
+  );
+}
 
-        <StaggerContainer className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {skillCategories.map(category => {
-            const Icon = iconMap[category.icon] || Shield;
-            const advanced = category.skills.filter(
-              s => s.level === 'advanced'
-            );
-            const intermediate = category.skills.filter(
-              s => s.level === 'intermediate'
-            );
-            const working = category.skills.filter(
-              s => s.level === 'working-knowledge'
-            );
+export default function Skills() {
+  return (
+    <section id="skills" className="section-padding relative">
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-accent-primary/[0.02] to-transparent pointer-events-none" />
+      <div className="max-w-6xl mx-auto relative">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.5 }}
+          className="mb-16"
+        >
+          <span className="section-label">// Skills</span>
+          <h2 className="section-title">Technical Arsenal</h2>
+          <p className="section-subtitle">Tools, technologies, and domains I work with daily.</p>
+        </motion.div>
 
-            return (
-              <StaggerItem key={category.id}>
-                <Card variant="glass" hover className="h-full">
-                  {/* Category header */}
-                  <div className="flex items-center gap-3 mb-5">
-                    <div className="w-10 h-10 rounded-lg bg-[rgba(0,240,255,0.08)] border border-[rgba(0,240,255,0.15)] flex items-center justify-center">
-                      <Icon className="w-5 h-5 text-[#00F0FF]" />
-                    </div>
-                    <h3 className="text-lg font-bold text-[#E8E8F0]">
-                      {category.name}
-                    </h3>
-                  </div>
-
-                  {/* Advanced */}
-                  {advanced.length > 0 && (
-                    <div className="mb-4">
-                      <SkillLevelBadge level="advanced" className="mb-2" />
-                      <div className="flex flex-wrap gap-2">
-                        {advanced.map(skill => (
-                          <SkillTag
-                            key={skill.name}
-                            name={skill.name}
-                            description={skill.description}
-                          />
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Intermediate */}
-                  {intermediate.length > 0 && (
-                    <div className="mb-4">
-                      <SkillLevelBadge level="intermediate" className="mb-2" />
-                      <div className="flex flex-wrap gap-2">
-                        {intermediate.map(skill => (
-                          <SkillTag
-                            key={skill.name}
-                            name={skill.name}
-                            description={skill.description}
-                          />
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Working Knowledge */}
-                  {working.length > 0 && (
-                    <div>
-                      <SkillLevelBadge level="working-knowledge" className="mb-2" />
-                      <div className="flex flex-wrap gap-2">
-                        {working.map(skill => (
-                          <SkillTag
-                            key={skill.name}
-                            name={skill.name}
-                            description={skill.description}
-                          />
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </Card>
-              </StaggerItem>
-            );
-          })}
-        </StaggerContainer>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {skillCategories.map((category, catIndex) => (
+            <motion.div
+              key={category.category}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: catIndex * 0.1 }}
+              className="card-glass p-6"
+            >
+              <h3 className="font-display font-semibold text-text-primary mb-5 flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-accent-primary" />
+                {category.category}
+              </h3>
+              <div className="space-y-3">
+                {category.skills.map((skill, skillIndex) => (
+                  <SkillBar key={skill.name} name={skill.name} level={skill.level} delay={catIndex * 0.1 + skillIndex * 0.05} />
+                ))}
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );

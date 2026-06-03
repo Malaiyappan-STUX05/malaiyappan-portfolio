@@ -1,27 +1,27 @@
-import { Hero } from '@/components/sections/Hero';
-import { About } from '@/components/sections/About';
-import { Experience } from '@/components/sections/Experience';
-import { Skills } from '@/components/sections/Skills';
-import { Projects } from '@/components/sections/Projects';
-import { Certifications } from '@/components/sections/Certifications';
-import { ResearchContributions } from '@/components/sections/ResearchContributions';
-import { ResearchWriteups } from '@/components/sections/ResearchWriteups';
-import { Resume } from '@/components/sections/Resume';
-import { Contact } from '@/components/sections/Contact';
+import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
+import Hero from "@/components/sections/Hero";
+import About from "@/components/sections/About";
+import Experience from "@/components/sections/Experience";
+import Projects from "@/components/sections/Projects";
+import Skills from "@/components/sections/Skills";
+import Achievements from "@/components/sections/Achievements";
+import Contact from "@/components/sections/Contact";
 
-export default function HomePage() {
+export default function Home() {
   return (
-    <main className="min-h-screen">
-      <Hero />
-      <About />
-      <Experience />
-      <Skills />
-      <Projects />
-      <Certifications />
-      <ResearchContributions />
-      <ResearchWriteups />
-      <Resume />
-      <Contact />
-    </main>
+    <>
+      <Navbar />
+      <main>
+        <Hero />
+        <About />
+        <Experience />
+        <Projects />
+        <Skills />
+        <Achievements />
+        <Contact />
+      </main>
+      <Footer />
+    </>
   );
 }

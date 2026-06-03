@@ -1,140 +1,102 @@
-'use client';
+"use client";
 
-import Image from 'next/image';
-import { motion } from 'framer-motion';
-import { MapPin, GraduationCap } from 'lucide-react';
-import { getProfile, getSkillCategories, getFeaturedProjects } from '@/lib/data';
-import { SectionHeading } from '@/components/ui/SectionHeading';
-import { Card } from '@/components/ui/Card';
-import { AnimatedSection, StaggerContainer, StaggerItem } from '@/components/ui/AnimatedSection';
+import { motion } from "framer-motion";
+import { education } from "@/lib/data/education";
 
-const profile = getProfile();
-const skillCategories = getSkillCategories();
-const featuredProjects = getFeaturedProjects();
+const containerVariants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.1 } },
+};
 
-const stats = [
-  { label: 'Featured Projects', value: featuredProjects.length.toString() },
-  { label: 'Skill Categories', value: skillCategories.length.toString() },
-  { label: 'Certifications', value: '5' },
-  { label: 'Internships', value: '5' },
-];
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+};
 
-export function About() {
+export default function About() {
   return (
-    <section id="about" className="relative py-24 md:py-32">
-      <div className="max-w-6xl mx-auto px-6">
-        <SectionHeading
-          label="About"
-          title="Who I Am"
-          description="Cybersecurity engineer focused on building intelligent security systems."
-        />
+    <section id="about" className="section-padding relative">
+      <div className="max-w-6xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.5 }}
+          className="mb-16"
+        >
+          <span className="section-label">// About</span>
+          <h2 className="section-title">Who I Am</h2>
+          <p className="section-subtitle">
+            A cybersecurity engineer in the making — combining academic rigor with real-world security operations experience.
+          </p>
+        </motion.div>
 
-        <div className="grid lg:grid-cols-5 gap-8 lg:gap-12">
-          {/* Left column — Photo + Info */}
-          <AnimatedSection
-            direction="left"
+        <div className="grid lg:grid-cols-5 gap-12">
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            className="lg:col-span-3 space-y-6"
+          >
+            <motion.p variants={itemVariants} className="text-text-secondary text-lg leading-relaxed">
+              I&apos;m a final-year Computer Science Engineering student at SRM Institute with a specialization in Cybersecurity. Over the past two years, I&apos;ve completed{" "}
+              <span className="text-text-primary font-medium">5 security internships</span> spanning blue team operations, vulnerability assessment, cloud security, and security research.
+            </motion.p>
+            <motion.p variants={itemVariants} className="text-text-secondary leading-relaxed">
+              My work has involved implementing <span className="text-accent-primary">Zero Trust architectures</span> at Palo Alto Networks and Zscaler, conducting{" "}
+              <span className="text-accent-primary">VAPT for 15+ applications</span> at Corizo Technologies, and building{" "}
+              <span className="text-accent-primary">ML-powered threat detection systems</span> as personal projects.
+            </motion.p>
+            <motion.p variants={itemVariants} className="text-text-secondary leading-relaxed">
+              I&apos;m passionate about building intelligent security systems that don&apos;t just detect threats — they{" "}
+              <span className="text-accent-primary">predict and prevent</span> them. Currently seeking full-time opportunities in application security, blue team operations, or DevSecOps.
+            </motion.p>
+
+            <motion.div variants={itemVariants} className="flex flex-wrap gap-3 pt-4">
+              {["Chennai, India", "SRM Institute", "GPA: 8.1/10", "Class of 2026"].map((item) => (
+                <span key={item} className="px-3 py-1.5 text-sm font-mono text-text-secondary border border-border rounded-lg bg-surface">
+                  {item}
+                </span>
+              ))}
+            </motion.div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.5, delay: 0.2 }}
             className="lg:col-span-2"
           >
-            <Card variant="glass" className="h-full">
-              {/* Avatar */}
-              <div className="relative w-32 h-32 md:w-40 md:h-40 mx-auto mb-6 rounded-2xl overflow-hidden bg-[#1A1A25] border-2 border-[rgba(0,240,255,0.15)]">
-                <Image
-                  src={profile.avatar}
-                  alt={profile.name}
-                  fill
-                  className="object-cover"
-                  sizes="160px"
-                />
-                {/* Fallback if image doesn't load */}
-                <div className="absolute inset-0 flex items-center justify-center bg-[#1A1A25] text-3xl font-black text-[#00F0FF]">
-                  {profile.firstName[0]}{profile.lastName[0]}
+            <div className="card-glass p-6 sticky top-24">
+              <h3 className="font-display font-semibold text-text-primary mb-4 flex items-center gap-2">
+                <svg className="w-5 h-5 text-accent-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 14l9-5-9-5-9 5 9 5z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 14l6.16-3.422A12.083 12.083 0 0121 12.017V19l-9 5-9-5v-6.983c0-2.08.89-4.032 2.4-5.385L12 14z" />
+                </svg>
+                Education
+              </h3>
+              <div className="space-y-4">
+                <div>
+                  <p className="text-text-primary font-medium text-sm">{education.degree}</p>
+                  <p className="text-accent-primary text-sm">{education.institution}</p>
+                  <p className="text-text-muted text-xs mt-1">{education.location} &middot; {education.period}</p>
+                  <p className="text-accent-secondary text-sm font-mono mt-1">GPA: {education.gpa}</p>
                 </div>
-              </div>
-
-              {/* Name & Role */}
-              <div className="text-center mb-6">
-                <h3 className="text-xl font-bold text-[#E8E8F0]">
-                  {profile.name}
-                </h3>
-                <p className="text-[#00F0FF] font-medium mt-1">
-                  {profile.role}
-                </p>
-              </div>
-
-              {/* Quick info */}
-              <div className="space-y-3 text-sm">
-                <div className="flex items-center gap-3 text-[#9A9AAA]">
-                  <MapPin className="w-4 h-4 text-[#00F0FF] flex-shrink-0" />
-                  {profile.location}
-                </div>
-                {profile.education.map((edu, i) => (
-                  <div key={i} className="flex items-start gap-3 text-[#9A9AAA]">
-                    <GraduationCap className="w-4 h-4 text-[#00F0FF] flex-shrink-0 mt-0.5" />
-                    <div>
-                      <p className="text-[#E8E8F0] font-medium text-sm">
-                        {edu.degree}
-                      </p>
-                      <p className="text-xs">{edu.institution}</p>
-                      <p className="text-xs text-[#5A5A72]">{edu.period}</p>
-                    </div>
+                <div className="border-t border-border pt-4">
+                  <p className="text-xs text-text-muted font-mono uppercase tracking-wider mb-3">Relevant Coursework</p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {education.coursework.map((course) => (
+                      <span key={course} className="px-2 py-1 text-xs font-mono text-text-secondary bg-bg-tertiary rounded border border-border/50">
+                        {course}
+                      </span>
+                    ))}
                   </div>
-                ))}
-              </div>
-            </Card>
-          </AnimatedSection>
-
-          {/* Right column — Bio + Stats */}
-          <div className="lg:col-span-3 flex flex-col gap-8">
-            <AnimatedSection direction="right">
-              <Card variant="glass">
-                <h3 className="text-lg font-bold text-[#E8E8F0] mb-4">
-                  My Approach
-                </h3>
-                <div className="space-y-4 text-[#9A9AAA] leading-relaxed">
-                  <p>
-                    I do not just use security tools — I engineer them. From
-                    enhancing CVSS-based vulnerability scoring with machine
-                    learning to architecting defense-in-depth file upload
-                    pipelines, I build systems that make security teams more
-                    effective.
-                  </p>
-                  <p>
-                    My work sits at the intersection of application security,
-                    DevSecOps, and security research. I focus on building
-                    practical solutions to real security problems — systems
-                    that prioritize what matters, detect what is hidden, and
-                    protect what is critical.
-                  </p>
-                  <p>
-                    Through internships with Palo Alto Networks, Zscaler, and
-                    Hack Secure, I have gained hands-on experience across the
-                    security stack — from network security and cloud platforms
-                    to penetration testing and security research.
-                  </p>
                 </div>
-              </Card>
-            </AnimatedSection>
-
-            {/* Stats */}
-            <AnimatedSection direction="up" delay={0.2}>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                {stats.map((stat, i) => (
-                  <Card
-                    key={stat.label}
-                    variant="default"
-                    className="text-center"
-                  >
-                    <div className="text-3xl font-black text-[#00F0FF]">
-                      {stat.value}
-                    </div>
-                    <div className="text-xs text-[#5A5A72] mt-1 font-medium uppercase tracking-wider">
-                      {stat.label}
-                    </div>
-                  </Card>
-                ))}
               </div>
-            </AnimatedSection>
-          </div>
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>
